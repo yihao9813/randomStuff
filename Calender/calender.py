@@ -38,7 +38,7 @@ def oneMonth(year,month,w):
 def printMonth(frame):
     print("MON\tTUE\tWED\tTHU\tFRI\tSAT\tSUN")
     for i in range(42):
-        print("%s%s"%(frame[i],"\t"),end="")2
+        print("%s%s"%(frame[i],"\t"),end="")
         if (i+1)%7==0:
             print ("\n")
     
