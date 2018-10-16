@@ -110,6 +110,7 @@ def backstage(request):
                     goods.description = request.POST.get('description')
                     goods.trade_location = request.POST.get('trade_location')
                     goods.price = request.POST.get('price')
+                    goods.category = request.POST.get('category')
                     goods.seller_phone = request.POST.get('seller_phone')
                     goods.seller_qq = request.POST.get('seller_qq')
                     goods.save()

@@ -7,7 +7,6 @@ class User(models.Model):
     password = models.CharField(max_length=50)
     email = models.EmailField()
     time = models.DateField()
-
     def __str__(self):
         return self.username
 
@@ -22,7 +21,7 @@ class Goods(models.Model):
     description = models.CharField(max_length=512,blank=True)  #商品描述
     trade_location = models.CharField(max_length=32)  #交易地点
     price = models.FloatField(default=0)
-    category = models.ForeignKey(Category)  #商品种类
+    category = models.ForeignKey(Category,on_delete=models.PROTECT)  #商品种类
     picture = models.ImageField(upload_to='goods',blank=False,null=False)
     seller = models.CharField(max_length=50)
     seller_phone = models.IntegerField(blank=False,null=False)
