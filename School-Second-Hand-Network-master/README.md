@@ -1,4 +1,5 @@
 # School-Second-Hand-Network
+Django Version : 2.1.1
 
     校园二手交易网（无前端）
 
