@@ -1,7 +1,6 @@
 #encoding: utf-8
-from django.shortcuts import render_to_response
+from django.shortcuts import render
 from django.http import HttpResponseRedirect
-from django.template import RequestContext
 from goodsIssue import controller
 from trade.controller import trade_his
 from login.models import GoodsissueGoods, GoodsissueSaler
@@ -12,12 +11,12 @@ from dtiaozao import function as fun
 def issue(req):
     if not req.session.get('islogin'):
         msg = '你还未登陆，请先登陆！'
-        return render_to_response('error_msg.html', locals())
+        return render(req,'error_msg.html', locals())
     if req.method == 'GET':
         uid = req.session['user_info']['uid']
         #获取商品信息
         rt = controller.get_goods(uid)
-        return render_to_response('user_issue.html', locals(), context_instance=RequestContext(req))
+        return render(req,'user_issue.html', locals())
     else:
         #获取form表单的基本信息
         data = req.POST
@@ -38,7 +37,7 @@ def issue(req):
             extends['imgName'] = imgName
             if not fun.handle_uploaded_file(imgfile):
                 msg = '文件上传失败，请联系管理员！！'
-                return render_to_response('error_msg.html', locals(), context_instance=RequestContext(req))
+                return render(req,'error_msg.html', locals())
 
         #数据库的存储和更新操作
         rt = controller.store_goods(data, extends)
@@ -47,10 +46,10 @@ def issue(req):
             return HttpResponseRedirect('/goodsIssue/issue')
         elif rt == -1:
             msg = '数据库的更新操作失败，请联系管理员！'
-            return render_to_response('error_msg.html', locals(), context_instance=RequestContext(req))
+            return render(req,'error_msg.html', locals())
         else:
             msg = '数据库的新增操作失败，请联系管理员！'
-            return render_to_response('error_msg.html', locals(), context_instance=RequestContext(req))
+            return render(req,'error_msg.html', locals())
 
 
 
@@ -60,11 +59,11 @@ def delGoods(req):
     isDel = controller.del_goods(data)
     if isDel == -1:
         msg = '删除商品失败，请联系管理员！'
-        return render_to_response('error_msg.html', locals(), context_instance=RequestContext(req))
+        return render(req,'error_msg.html', locals())
     else:
         uid = req.session['user_info']['uid']
         rt = controller.get_goods(uid)
-        return render_to_response('user_issue.html', locals(), context_instance=RequestContext(req))
+        return render(req,'user_issue.html', locals())
 
 
 
@@ -72,7 +71,7 @@ def delGoods(req):
 def saleHis(req):
     if not req.session.get('islogin'):
         msg = '你还未登陆，请先登陆！'
-        return render_to_response('error_msg.html', locals())
+        return render(req,'error_msg.html', locals())
     if req.method == 'GET':
         uid = req.session['user_info']['uid']
 
@@ -80,7 +79,7 @@ def saleHis(req):
         p = GoodsissueGoods.objects.filter(owner_id=uid)
         if not p:
             msg = '你还未上架任何商品！'
-            return render_to_response('error_msg.html', locals(), context_instance=RequestContext(req))
+            return render(req,'error_msg.html', locals())
 
         #定义一个购买者id的列表
         buyer_id = []
@@ -99,7 +98,7 @@ def saleHis(req):
         buyer_id = list(set(buyer_id))
         #跨APP调用trade子模块中controller中的方法，传入一个列表对象
         result = trade_his(buyer_id)
-        return render_to_response('sale_history.html', locals(), context_instance=RequestContext(req))
+        return render(req,'sale_history.html', locals())
 
 
 #售出消息接收模块

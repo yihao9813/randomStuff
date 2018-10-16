@@ -1,5 +1,5 @@
 #encoding: utf-8
-from django.shortcuts import render_to_response
+from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from login import controller
 
@@ -8,7 +8,7 @@ from login import controller
 def login(request):
     if request.method == 'GET':
         msg = '非法访问！！'
-        return render_to_response('error_msg.html', locals())
+        return render(request,'error_msg.html', locals())
     else:
         data = request.POST
         rt = controller.user_login(data)
@@ -24,14 +24,14 @@ def login(request):
             return HttpResponseRedirect('/')
         else:
             msg = '账号或密码错误！'
-            return render_to_response('error_msg.html', locals())
+            return render(request,'error_msg.html', locals())
 
 
 #登出模块
 def logout(request):
     if request.method == 'POST':
         msg = '非法访问！！'
-        return render_to_response('error_msg.html', locals())
+        return render(request,'error_msg.html', locals())
     else:
         #删除session信息
         del request.session['user_info']
@@ -43,7 +43,7 @@ def logout(request):
 def register(request):
     if request.method == 'GET':
         status = False
-        return render_to_response('user_register.html', locals())
+        return render(request,'user_register.html', locals())
     else:
         status = True
         date = request.POST
@@ -56,4 +56,4 @@ def register(request):
             msg = '注册失败，请联系站长！！！'
         else:
             msg = '用户以存在，请重新注册！'
-        return render_to_response('user_register.html', locals())
+        return render(request,'user_register.html', locals())
