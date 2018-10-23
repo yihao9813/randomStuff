@@ -7,14 +7,13 @@ from dtiaozao import function as fun
 def get_goods(uid):
     #扫描商品表
     owner_id = LoginUser.objects.get(id=uid)
-    u = GoodsissueGoods.objects.filter(owner_id=owner_id)
+    u = GoodsissueGoods.objects.filter(owner_id=uid) #change
     return u
-
 
 #商品下架处理
 def del_goods(data):
     goods_id = fun.warp_data(data)['id']
-    p = GoodsissueGoods.objects.get(id=goods_id)
+    p = GoodsissueGoods.objects.get(owner_id=goods_id) #change
     if p:
         p.delete()
     else:
@@ -22,7 +21,7 @@ def del_goods(data):
 
 
 #商品信息发布处理
-def store_goods(data, extends):
+def store_goods(data,extends):
     condition = fun.warp_data(data)
     issueDate = fun.now()
     #定义存储商品发布者信息的字典

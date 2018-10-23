@@ -103,5 +103,5 @@ def saleHis(req):
 
 #售出消息接收模块
 def message(req):
-    return 1
+    return render(req,'working.html')
 

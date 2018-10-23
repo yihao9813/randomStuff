@@ -1,8 +1,9 @@
 #encoding: utf-8
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
-from dtiaozao import function as fun
+from django.template import RequestContext
 from trade import controller
+from dtiaozao import function as fun
 
 
 #商品浏览模块
