@@ -1,5 +1,5 @@
 #encoding: utf-8
-from login.models import LoginUser, GoodsissueGoods, GoodsissueIssuer, GoodsissueSaler
+from login.models import LoginUser, GoodsissueGoods, GoodsissueIssuer
 from dtiaozao import function as fun
 
 

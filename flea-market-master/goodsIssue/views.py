@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from goodsIssue import controller
 from trade.controller import trade_his
-from login.models import GoodsissueGoods, GoodsissueSaler
+from login.models import GoodsissueGoods,GoodsissueSaler
 from dtiaozao import function as fun
 
 
@@ -93,6 +93,7 @@ def saleHis(req):
                 buyer_id.append((p2[0].buyer_id, goods_id))
             else:
                 buyer_id.append((0, 0))
+                
 
         #对list中的数据进行去重工作
         buyer_id = list(set(buyer_id))

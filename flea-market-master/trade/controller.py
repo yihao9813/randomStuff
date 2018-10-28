@@ -1,6 +1,8 @@
 #encoding: utf-8
 from login.models import LoginUser, GoodsissueGoods, GoodsissueIssuer, GoodsissueSaler
 from dtiaozao import function as fun
+from functools import cmp_to_key
+from datetime import datetime,timedelta
 
 #得到全部商品信息模块处理
 def get_goods_info():
@@ -33,6 +35,8 @@ def purchase(data, buyer_id):
         return -1
 
 
+
+
 #购买和售出记录模块处理
 def trade_his(uid):
     result = []
@@ -49,6 +53,7 @@ def trade_his(uid):
                 info['goods_id'] = re.goods_id
                 info['buyer_id'] = buyer_id[0]
                 info['tradedate'] = re.tradedate
+                info['second']=re.tradedate.second
                 p = GoodsissueGoods.objects.get(id=re.goods_id)
                 info['goods_name'] = p.name
                 info['goods_price'] = p.price
@@ -57,5 +62,6 @@ def trade_his(uid):
         else:
             return []
     #对结果集进行排序，以销售日期的先后做排序
-    result.sort(lambda x,y: cmp(x['tradedate'],y['tradedate']), reverse=True)
+    result.sort(key=cmp_to_key(lambda x,y: x['second']-y['second']), reverse=True)
     return result
+
