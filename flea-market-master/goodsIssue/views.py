@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from goodsIssue import controller
 from trade.controller import trade_his
-from login.models import GoodsissueGoods,GoodsissueSaler
+from goodsIssue.models import GoodsissueGoods,GoodsissueSaler
 from dtiaozao import function as fun
 
 

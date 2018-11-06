@@ -1,5 +1,6 @@
 #encoding: utf-8
-from login.models import LoginUser, GoodsissueGoods, GoodsissueIssuer
+from login.models import LoginUser
+from goodsIssue.models import GoodsissueGoods,GoodsissueIssuer
 from dtiaozao import function as fun
 
 
@@ -7,13 +8,13 @@ from dtiaozao import function as fun
 def get_goods(uid):
     #扫描商品表
     owner_id = LoginUser.objects.get(id=uid)
-    u = GoodsissueGoods.objects.filter(owner_id=uid) #change
+    u = GoodsissueGoods.objects.filter(owner_id=owner_id) #change
     return u
 
 #商品下架处理
 def del_goods(data):
     goods_id = fun.warp_data(data)['id']
-    p = GoodsissueGoods.objects.get(owner_id=goods_id) #change
+    p = GoodsissueGoods.objects.get(id=goods_id) #change
     if p:
         p.delete()
     else:

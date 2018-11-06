@@ -42,7 +42,7 @@ def logout(req):
 
 #注册模块
 def register(req):
-    if req.method == 'GET':
+    if req.method == 'GET': 
         status = False
         return render(req,'user_register.html', locals())
     else:
